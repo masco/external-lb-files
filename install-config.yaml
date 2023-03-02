@@ -1,0 +1,43 @@
+apiVersion: v1
+baseDomain: "rdu2.scalelab.redhat.com"
+compute:
+- name: worker
+  replicas: 3
+  platform:
+    openstack:
+      type: ci.worker
+controlPlane:
+  name: master
+  replicas: 3
+  platform:
+    openstack:
+      type: ci.master
+metadata:
+  name: "externallb"
+networking:
+  clusterNetwork:
+  - cidr: 10.128.0.0/13
+    hostPrefix: 22
+  serviceCIDR: 172.30.0.0/16
+  machineNetwork:
+  - cidr: 172.16.0.0/23
+  type: "OVNKubernetes"
+platform:
+  openstack:
+    computeFlavor:     "m4.xlarge"
+    cloud:             "shiftstack"
+    region:            "regionOne"
+    machinesSubnet: cf3bab54-a2e1-44d8-8d89-195942a0cd02
+    apiVIPs:
+    - 172.16.0.5
+    ingressVIPs:
+    - 172.16.0.7
+    loadBalancer:
+      type: UserManaged
+    octaviaSupport: "1"
+    trunkSupport: "1"
+featureSet: TechPreviewNoUpgrade
+pullSecret: '{"auths":{"cloud.openshift.com":{"auth":"b3BlbnNoaWZ0LXJlbGVhc2UtZGV2K2ttYXNjbzFidW1pZmFoZDJzeGN2dm5hMmpvdXdveHBxZzpQMFQyWEg4U1ZaUzBCSVU3Wkw2Rk9SWEpNMEhDNEIzRVA4WVY1NktXS1BTUkRWMloxQ004TVhJRVNWRk5BVERI","email":"mkaliyam@redhat.com"},"quay.io":{"auth":"b3BlbnNoaWZ0LXJlbGVhc2UtZGV2K2ttYXNjbzFidW1pZmFoZDJzeGN2dm5hMmpvdXdveHBxZzpQMFQyWEg4U1ZaUzBCSVU3Wkw2Rk9SWEpNMEhDNEIzRVA4WVY1NktXS1BTUkRWMloxQ004TVhJRVNWRk5BVERI","email":"mkaliyam@redhat.com"},"registry.connect.redhat.com":{"auth":"NTI3OTg0NzR8dWhjLTFiVU1pZmFoRDJzeENWVm5hMkpPVXdveFBRZzpleUpoYkdjaU9pSlNVelV4TWlKOS5leUp6ZFdJaU9pSmlOemN5TXpVeE16WmpPV1UwTXpFeVltSXhNMlpqTm1RME4yTTJaVEpoWlNKOS5aRXlRVnhjNktHdklZZEFFZHNqQ01wMmxzLVo0OTZBeFlUUU05WE9yelRTbE90MHNSVThaTG1hMzNlQ2J2ZVFLMHBxWEVabjdFSUU2WkJkTnpiNFpwTl9nWWU5T1BKSkdwRDVJZ2pLNVY0dl9rYmt2QUxiREdyanpkcG1WVklHek9KaEp1R0NTNXZyQUtsLU95eHF4NURFYXVISTRVTDRRdFBMdWlKSWdyZm5WWkhwWGN5OHVaalhxamRMNFBKUkZTRWF0ZlNUMmRqdEpwZTFVLTRrd3l0TTJOb1BxLXVZcm4wbnRPN1p6ZS1HbkhXY0pJN2lkT012LWcxbW1OMmNTN2dydjNwbjlqLXpZUVZCRG10VU1LV1VVMllQMFJGenc0NFJ1MDhNUkc2SWNMdFNWSmE5czhnbzNlRlNKWXhfRXJTMkZxQXZ6U3dmbk1FSW1iSVgtY05xcnUwVGwtMzhweU9ERUtpTlpIeWpoZ3JWUW1ycklXck9aRERFNXRhd0J5Z3F0YnY2ajBLdEtfUVJIdWkxcUlHZHRxQ0VvbzZjWndxbjFweWE2anNmVFAzc2JDNWFCUm5Ub3JFT1VVcTUxSTZLMUp4M1kxNUxNX3g0WkxtQmUybnZSZkZ0NXVvS1VhSWRicGRwZG1kdnRIbjNrbHBacUNuRWJOazdEU0c3eWF2blZsYnJUZmR1bHNpYnF0MXhQQmlSYlZSTmZUZVlBMTZCQUYwYTFzQlU0amZnbXZxdjJHT0VvVXBkUTZreUh2SnNTYXQ1YVA1ZEtpcFFKRXhYSUVHdE1yUm5TQXM3MXU3NU5aMDh1MUZpYjBaWHBnZTZwYWhPYlE4NWtQQmgyYWxNZHc3bEhFNm1rcFBUUXo5MVp1TG1fVjdhN3B3UXkxYV82NHBQMHB2VQ==","email":"mkaliyam@redhat.com"},"registry.redhat.io":{"auth":"NTI3OTg0NzR8dWhjLTFiVU1pZmFoRDJzeENWVm5hMkpPVXdveFBRZzpleUpoYkdjaU9pSlNVelV4TWlKOS5leUp6ZFdJaU9pSmlOemN5TXpVeE16WmpPV1UwTXpFeVltSXhNMlpqTm1RME4yTTJaVEpoWlNKOS5aRXlRVnhjNktHdklZZEFFZHNqQ01wMmxzLVo0OTZBeFlUUU05WE9yelRTbE90MHNSVThaTG1hMzNlQ2J2ZVFLMHBxWEVabjdFSUU2WkJkTnpiNFpwTl9nWWU5T1BKSkdwRDVJZ2pLNVY0dl9rYmt2QUxiREdyanpkcG1WVklHek9KaEp1R0NTNXZyQUtsLU95eHF4NURFYXVISTRVTDRRdFBMdWlKSWdyZm5WWkhwWGN5OHVaalhxamRMNFBKUkZTRWF0ZlNUMmRqdEpwZTFVLTRrd3l0TTJOb1BxLXVZcm4wbnRPN1p6ZS1HbkhXY0pJN2lkT012LWcxbW1OMmNTN2dydjNwbjlqLXpZUVZCRG10VU1LV1VVMllQMFJGenc0NFJ1MDhNUkc2SWNMdFNWSmE5czhnbzNlRlNKWXhfRXJTMkZxQXZ6U3dmbk1FSW1iSVgtY05xcnUwVGwtMzhweU9ERUtpTlpIeWpoZ3JWUW1ycklXck9aRERFNXRhd0J5Z3F0YnY2ajBLdEtfUVJIdWkxcUlHZHRxQ0VvbzZjWndxbjFweWE2anNmVFAzc2JDNWFCUm5Ub3JFT1VVcTUxSTZLMUp4M1kxNUxNX3g0WkxtQmUybnZSZkZ0NXVvS1VhSWRicGRwZG1kdnRIbjNrbHBacUNuRWJOazdEU0c3eWF2blZsYnJUZmR1bHNpYnF0MXhQQmlSYlZSTmZUZVlBMTZCQUYwYTFzQlU0amZnbXZxdjJHT0VvVXBkUTZreUh2SnNTYXQ1YVA1ZEtpcFFKRXhYSUVHdE1yUm5TQXM3MXU3NU5aMDh1MUZpYjBaWHBnZTZwYWhPYlE4NWtQQmgyYWxNZHc3bEhFNm1rcFBUUXo5MVp1TG1fVjdhN3B3UXkxYV82NHBQMHB2VQ==","email":"mkaliyam@redhat.com"},"registry.ci.openshift.org":{"auth":"bWthbGl5YW06c2hhMjU2fm5GTzdJUnVvanp2U25CcGpmdFpOTjZzQkZwam5sTl81cUFqa2ZNZmFnQU0=","email":"mkaliyam@redhat.com"}}}'
+
+sshKey: |
+  ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCg0U0yPt2QcQHVD5629RpGctWfuYwOsBqS7+DyN7oiDjWo47ckijTul0AnttbBO21zXA3ap+gx/Q37HF8MjDDwTtvJS8XK6x7iTvJ5hhpPNjL8fCatKLSnjXTi8SPZOPNG+OWnFJ+vrpZe1ZlEHF6saHp4epMKSWxe5YHiTCNcq5jzC/iQcvBf8sgWdbe+tl7lwSU4Qc6O+YSF7O1beIjrRLMELyLCXV0dx/6lqqQoRJctHZWuF0Sd58pcEWgCIS/hyBl5JqAncJY7wJz7R8gA1yWZ5PgBdY4JCLj5OPWzkyMmPhdT8PzTjf0N4RDfaJsdWNzhSuzLafCpU6rYi/7kFC5v44CfUI530ECqUb+DDrfm/QJs9Bq3ev1jFAmx32Q/2vxuxPEGdKguopuOFYNwRxn5YQUY++69+R5BB+IC6Vk3gCIHP6yrtwsVt5lZll80/4AShOi5wGsuOIlIGvQFte8q4FJGI7zbJbOxi1EvOu/yPGMEFc5t2uSpxYiXX/E= stack@undercloud.redhat.local
